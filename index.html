@@ -124,7 +124,18 @@
             padding: 0 20px;
         }
 
-        .card { height: 260px; perspective: 1000px; cursor: pointer; }
+        /* ✨ 卡片容器基础样式 */
+        .card { height: 260px; perspective: 1000px; cursor: pointer; transition: transform 0.3s ease; }
+
+        /* ✨ 新增：鼠标经过时的晃动动画效果 */
+        .card:hover {
+            transform: scale(1.05) rotate(2deg); /* 稍微变大并向右歪一点点 */
+        }
+        
+        .card:active {
+            transform: scale(0.95); /* 点击时会有缩小的感觉 */
+        }
+
         .card-inner {
             position: relative;
             width: 100%;
@@ -232,7 +243,7 @@
 
         // 2. Fungsi Bunyi Flip
         function playFlipSound() {
-            flipSfx.currentTime = 0; // Reset ke saat permulaan supaya boleh bunyi berturut-turut
+            flipSfx.currentTime = 0; 
             flipSfx.play();
         }
 
@@ -260,9 +271,8 @@
                         </div>
                     </div>`;
                 
-                // Klik untuk flip + Bunyi Flip
                 card.onclick = () => {
-                    playFlipSound(); // Panggil bunyi flip
+                    playFlipSound(); 
                     card.classList.toggle('is-flipped');
                 };
                 
