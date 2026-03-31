@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RBT 5.2.5 - Cikgu Chien 🖍️😊</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap');
+
+        :root {
+            --soft-red: #ff8a8a;
+            --soft-yellow: #fff9db;
+            --soft-blue: #a5d8ff;
+            --border-grey: #5c5c5c;
+            --text-main: #444444;
+            --bg-color: #fdfbf7;
+        }
+
+        body {
+            font-family: 'Comic Neue', cursive;
+            background-color: var(--bg-color);
+            background-image: url('https://www.transparenttextures.com/patterns/handmade-paper.png');
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        /* 🖼️ GIF Banner */
+        .top-banner-container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 20px auto 10px auto;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        .top-banner-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+            border: 4px solid var(--border-grey);
+            border-radius: 30px;
+            box-shadow: 0px 8px 15px rgba(0,0,0,0.1);
+        }
+
+        /* 🎵 Butang Muzik (Floating) */
+        #music-toggle {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: white;
+            border: 4px solid var(--border-grey);
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 4px 4px 0px var(--soft-red);
+            transition: 0.3s;
+        }
+        #music-toggle.playing {
+            animation: rotateBgm 4s linear infinite;
+            background-color: var(--soft-yellow);
+        }
+        @keyframes rotateBgm {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .header-box {
+            text-align: center;
+            max-width: 850px;
+            background: white;
+            border: 4px solid var(--border-grey);
+            padding: 30px;
+            border-radius: 40px 15px;
+            box-shadow: 10px 10px 0px var(--soft-blue);
+            margin: 20px 20px 50px 20px;
+        }
+
+        h1 { color: var(--soft-red); font-size: 2.2rem; margin: 0 0 15px 0; line-height: 1.2; }
+        
+        .intro-text { 
+            font-weight: bold; 
+            font-size: 1.2rem; 
+            line-height: 1.6;
+            color: #555;
+            padding: 10px;
+        }
+        
+        .music-hint { font-size: 0.9rem; color: #888; margin-top: 15px; font-style: italic; }
+
+        .section-header {
+            width: 100%;
+            max-width: 1000px;
+            padding: 12px 35px;
+            border-radius: 50px;
+            font-size: 1.5rem;
+            margin: 40px 0 25px 0;
+            color: white;
+            font-weight: bold;
+            border: 4px solid var(--border-grey);
+            box-shadow: 6px 6px 0px var(--border-grey);
+            text-align: center;
+        }
+        .header-alatan { background-color: var(--soft-red); }
+        .header-bahan { background-color: var(--soft-blue); }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+            gap: 25px;
+            width: 100%;
+            max-width: 1000px;
+            padding: 0 20px;
+        }
+
+        .card { height: 260px; perspective: 1000px; cursor: pointer; }
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform-style: preserve-3d;
+        }
+        .card.is-flipped .card-inner { transform: rotateY(180deg); }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 25px;
+            border: 4px solid var(--border-grey);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            box-sizing: border-box;
+            background: white;
+        }
+
+        .card-front { background-color: var(--soft-yellow); }
+        .num {
+            width: 45px; height: 45px; border-radius: 50%; border: 3px solid var(--border-grey);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; margin-bottom: 12px; background: white;
+        }
+        .alatan-card .num { color: var(--soft-red); }
+        .bahan-card .num { color: var(--soft-blue); }
+
+        .card-back { transform: rotateY(180deg); }
+        .card-back img {
+            width: 100%;
+            height: 140px;
+            object-fit: contain;
+            margin-bottom: 10px;
+            border-radius: 12px;
+        }
+
+        .label {
+            font-size: 0.85rem; font-weight: bold; color: var(--soft-red);
+            background: #fff5f5; padding: 4px 10px; border-radius: 8px; border: 1px dashed var(--soft-red);
+        }
+
+        footer {
+            margin: 80px 0 40px 0; padding: 15px 40px; background: white;
+            border: 3px solid var(--border-grey); border-radius: 30px 10px;
+            font-weight: bold; color: var(--border-grey); text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bgMusic" loop>
+        <source src="images/bgm.mp3" type="audio/mpeg">
+    </audio>
+
+    <audio id="flipSound">
+        <source src="images/flip.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="music-toggle" onclick="toggleMusic()">🎵</div>
+
+    <div class="top-banner-container">
+        <img src="images/top_banner.gif" alt="RBT Banner" class="top-banner-img" onerror="this.src='https://via.placeholder.com/1000x200?text=Imej+Banner+RBT'">
+    </div>
+
+    <div class="header-box">
+        <h1>✨ 5.2.5 Penghasilan Produk Elektromekanikal ⚙️⚡</h1>
+        <p class="intro-text">
+            🤔 Sebelum membuat produk, kita perlu mengetahui apa alatan ⚒️ dan bahan 📦 yang diperlukan terlebih dahulu. Jom kenali mereka bersama Cikgu Chien! 🖍️✨☁️
+        </p>
+        <p class="music-hint">(Klik butang 🎵 untuk pasang muzik latar 🎶)</p>
+    </div>
+
+    <div class="section-header header-alatan">🛠️ Alatan Utama</div>
+    <div class="grid" id="alatanGrid"></div>
+
+    <div class="section-header header-bahan">📦 Bahan Projek</div>
+    <div class="grid" id="bahanGrid"></div>
+
+    <footer>Disediakan dengan penuh ❤️ oleh: Cikgu Chien 🖍️😊☁️</footer>
+
+    <script>
+        // 1. Fungsi Muzik Latar
+        const music = document.getElementById('bgMusic');
+        const flipSfx = document.getElementById('flipSound');
+        const btn = document.getElementById('music-toggle');
+
+        function toggleMusic() {
+            if (music.paused) {
+                music.play();
+                btn.innerText = '⏸️';
+                btn.classList.add('playing');
+            } else {
+                music.pause();
+                btn.innerText = '🎵';
+                btn.classList.remove('playing');
+            }
+        }
+
+        // 2. Fungsi Bunyi Flip
+        function playFlipSound() {
+            flipSfx.currentTime = 0; // Reset ke saat permulaan supaya boleh bunyi berturut-turut
+            flipSfx.play();
+        }
+
+        // 3. Data & Generator Kad
+        const alatanArr = ["✂️ Gunting serba guna", "🧰 Pelucut wayar", "✏️ Pensel", "📏 Pembaris keluli", "🔪 Pisau boleh laras", "🔩 Pemutar skru Philip", "🔋 Gerudi mudah alih", "💻 Alas pemotong"];
+        const bahanArr = ["📦 Kertas kotak", "🍼 Glu sentuh", "🏒 Batang aiskrim", "🔋 Pemegang bateri", "🎗️ Pita pelekat", "🔥 Tiub pengecutan haba", "🔋 Bateri", "📡 Antena pemancar", "📡 Antena penerima", "🧩 Papan isyarat penerima", "🧩 Papan isyarat pemancar", "⚙️ Gear", "Gandar 🔩", "Roda 🚗", "Bol dan nat 🔩", "Motor 🏎️"];
+
+        function createCards(list, gridId, typeClass, filePrefix) {
+            const grid = document.getElementById(gridId);
+            list.forEach((name, i) => {
+                const card = document.createElement('div');
+                card.className = `card ${typeClass}`;
+                
+                const imgSrc = `images/${filePrefix}_${i + 1}.png`;
+
+                card.innerHTML = `
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="num">${i + 1}</div>
+                            <div class="name" style="text-align:center; font-weight:bold;">${name}</div>
+                        </div>
+                        <div class="card-back">
+                            <img src="${imgSrc}" alt="${name}" onerror="this.src='https://via.placeholder.com/180?text=Imej+Tiada'">
+                            <div class="label">${name}</div>
+                        </div>
+                    </div>`;
+                
+                // Klik untuk flip + Bunyi Flip
+                card.onclick = () => {
+                    playFlipSound(); // Panggil bunyi flip
+                    card.classList.toggle('is-flipped');
+                };
+                
+                grid.appendChild(card);
+            });
+        }
+
+        createCards(alatanArr, 'alatanGrid', 'alatan-card', 'alatan');
+        createCards(bahanArr, 'bahanGrid', 'bahan-card', 'bahan');
+    </script>
+</body>
+</html>
